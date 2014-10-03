@@ -16,7 +16,15 @@ class UsersController < ApplicationController
   end
 
 def new
-    @user = User.new
+    if signed_in?
+   redirect_to root_url
+   else
+   @user = User.new
+  end
+      
+ 
+
+
   end
 
   def edit
@@ -32,6 +40,9 @@ def new
   end
 
 def create
+if signed_in?
+   redirect_to root_url
+   else
     @user = User.new(user_params)
     if @user.save
       sign_in @user
@@ -40,7 +51,8 @@ def create
     else
       render 'new'
     end
-  end
+end
+end
 
   private
 
